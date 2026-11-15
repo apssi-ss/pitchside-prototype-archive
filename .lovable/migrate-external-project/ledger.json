@@ -2,17 +2,89 @@
   "source": "code-archive",
   "archive": "apssi_platform-main.zip",
   "capabilities": [
-    {"capability":"application code and routes","source":"28 TanStack Start routes, shared UI, static demo data and a grassroots football hero asset","outcome":"Recreate the existing 28-page BolaID prototype in the Lovable project while preserving its current local-only behavior","status":"pending","next_action":"Copy source modules, adapt page metadata and asset handling, then verify routes and runtime"},
-    {"capability":"database schema","source":"No schema, migration folder, database client or business data store found","outcome":"No database migration required from the supplied archive","status":"not_present","next_action":"If a live external store exists outside this archive, provide its schema separately; otherwise none"},
-    {"capability":"business records","source":"No database records or record export; frontend mock fixtures are embedded in source code","outcome":"Keep only prototype fixtures, with no claim that they are verified production records","status":"pending","next_action":"Confirm the fixtures are synthetic before using the preview with real people; provide sanitized exports only if there is an external store"},
-    {"capability":"authentication and user identities","source":"No auth integration or user export; the eight role choices are local demo personas","outcome":"Preserve role switching as a prototype interaction; no accounts or identity records to migrate","status":"not_present","next_action":"None for this archive; production sign-in requires a separately approved implementation"},
-    {"capability":"authorization and privacy controls","source":"Role navigation, consent and scout filtering are client-side prototype behavior; no server policy found","outcome":"Preserve prototype screens only; do not treat UI role/consent states as production security","status":"not_migrated","next_action":"Before real child data, define and implement approved identity, guardian, consent and organization access rules"},
-    {"capability":"uploaded file bytes and storage","source":"One bundled grassroots-football hero image; no storage service or user-uploaded data flow","outcome":"Move the hero image through the project asset flow; no user files to migrate","status":"pending","next_action":"Complete asset import and verify it renders"},
-    {"capability":"external providers and integrations","source":"No payment SDK, email, analytics, OAuth, AI, storage or external API calls found","outcome":"No compatible external provider to reconnect","status":"not_present","next_action":"None for this archive"},
-    {"capability":"public endpoints, callbacks and webhooks","source":"No business endpoints, callbacks or webhooks found","outcome":"No external endpoint to preserve","status":"not_present","next_action":"None for this archive"},
-    {"capability":"schedules and background jobs","source":"No cron, scheduled function or job found","outcome":"No scheduled process to migrate","status":"not_present","next_action":"None for this archive"},
-    {"capability":"secrets and runtime configuration","source":"No required environment-variable names or secret-dependent app code detected","outcome":"No source credentials required","status":"not_present","next_action":"None for this archive"},
-    {"capability":"cutover","source":"No production service or external caller is evidenced by the archive","outcome":"No production cutover action is established","status":"not_applicable","next_action":"Confirm separately if this prototype is connected to a live deployment"},
-    {"capability":"verification","source":"Preview routes and local prototype interactions","outcome":"Verify the major routes, rendering and included tests; no persisted or authenticated flow exists to verify","status":"pending","next_action":"Run tests, inspect build/runtime signals and smoke-test the app"}
+    {
+      "capability": "application code and routes",
+      "source": "28 TanStack Start routes, shared UI, static demo data and a grassroots football hero asset",
+      "outcome": "All 28 BolaID pages and shared modules were recreated; all routes returned HTTP 200 in browser checks, the main image rendered, and key prototype interactions and responsive views were checked.",
+      "status": "verified",
+      "next_action": "None for prototype parity"
+    },
+    {
+      "capability": "database schema",
+      "source": "No schema, migration folder, database client or business data store found",
+      "outcome": "No database migration required from the supplied archive",
+      "status": "not_present",
+      "next_action": "If a live external store exists outside this archive, provide its schema separately; otherwise none"
+    },
+    {
+      "capability": "business records",
+      "source": "No database records or record export; frontend mock fixtures are embedded in source code",
+      "outcome": "The archive contains only embedded demo fixtures; no live record export was attached.",
+      "status": "pending",
+      "next_action": "Confirm the player names, IDs and values are synthetic before using this preview with real people; if a separate production store exists, provide its sanitized record export."
+    },
+    {
+      "capability": "authentication and user identities",
+      "source": "No auth integration or user export; the eight role choices are local demo personas",
+      "outcome": "Preserve role switching as a prototype interaction; no accounts or identity records to migrate",
+      "status": "not_present",
+      "next_action": "None for this archive; production sign-in requires a separately approved implementation"
+    },
+    {
+      "capability": "authorization and privacy controls",
+      "source": "Role navigation, consent and scout filtering are client-side prototype behavior; no server policy found",
+      "outcome": "Preserve prototype screens only; do not treat UI role/consent states as production security",
+      "status": "not_migrated",
+      "next_action": "Before real child data, define and implement approved identity, guardian, consent and organization access rules"
+    },
+    {
+      "capability": "uploaded file bytes and storage",
+      "source": "One bundled grassroots-football hero image; no storage service or user-uploaded data flow",
+      "outcome": "The bundled football photo was added through the project asset library and visibly rendered in preview.",
+      "status": "verified",
+      "next_action": "None for the supplied prototype"
+    },
+    {
+      "capability": "external providers and integrations",
+      "source": "No payment SDK, email, analytics, OAuth, AI, storage or external API calls found",
+      "outcome": "No compatible external provider to reconnect",
+      "status": "not_present",
+      "next_action": "None for this archive"
+    },
+    {
+      "capability": "public endpoints, callbacks and webhooks",
+      "source": "No business endpoints, callbacks or webhooks found",
+      "outcome": "No external endpoint to preserve",
+      "status": "not_present",
+      "next_action": "None for this archive"
+    },
+    {
+      "capability": "schedules and background jobs",
+      "source": "No cron, scheduled function or job found",
+      "outcome": "No scheduled process to migrate",
+      "status": "not_present",
+      "next_action": "None for this archive"
+    },
+    {
+      "capability": "secrets and runtime configuration",
+      "source": "No required environment-variable names or secret-dependent app code detected",
+      "outcome": "No source credentials required",
+      "status": "not_present",
+      "next_action": "None for this archive"
+    },
+    {
+      "capability": "cutover",
+      "source": "No production service or external caller is evidenced by the archive",
+      "outcome": "No production cutover action is established",
+      "status": "not_applicable",
+      "next_action": "Confirm separately if this prototype is connected to a live deployment"
+    },
+    {
+      "capability": "verification",
+      "source": "Preview routes and local prototype interactions",
+      "outcome": "All 28 routes returned HTTP 200; the hero image rendered; key local interactions worked with no page errors; route and role tests passed; preview build log is clean. The archive has no authenticated or persisted flow to test.",
+      "status": "verified",
+      "next_action": "None for prototype parity; production auth and data verification require capabilities absent from the archive."
+    }
   ]
 }
