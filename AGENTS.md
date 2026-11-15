@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Migrated application structure
+
+- Keep the BolaID prototype in TanStack Start file-based routes with shared page, shell, and fixture modules under `src/`; this preserves the archive's route behavior without introducing an unverified data service.
