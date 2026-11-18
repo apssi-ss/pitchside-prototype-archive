@@ -32,3 +32,6 @@ use the editor.
 ## Migrated application structure
 
 - Keep the BolaID prototype in TanStack Start file-based routes with shared page, shell, and fixture modules under `src/`; this preserves the archive's route behavior without introducing an unverified data service.
+- Organizer access comes only from `public.user_roles` (role `organizer`), checked in RLS via `has_role`; the demo role switcher never grants permissions, so it cannot be used to escalate.
+- Match check-ins are written only through the `check_in_player` security-definer function, which validates organizer role, passport token, roster membership and duplicates atomically; clients have no direct insert rights.
+- Football Passport QR codes encode only `BOLAID:P:<random token>`, never personal data, so a photographed passport leaks nothing beyond a revocable token.

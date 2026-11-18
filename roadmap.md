@@ -8,7 +8,8 @@
 - [ ] Add coach-entered assessment and training records with private persistent storage.
 - [ ] Generate individualized development plans through AI Gateway from minimal performance data.
 - [ ] Verify signed-in record saves, plan generation, reload behavior, and relevant tests.
-- [ ] Add Cloud sign-in and account profiles for persistent records.
+- [x] Add Cloud sign-in and account profiles for persistent records.
 - [ ] Persist owned player, assessment, training-session, and attendance records with row-level privacy.
 - [ ] Connect roster, assessment, and training screens; verify signed-in saves and reloads.
-- [ ] Add secure organizer accounts, persisted match rosters, QR passport scanning, and shared check-in records.
+- [x] Add secure organizer accounts, persisted match rosters, QR passport scanning, and shared check-in records.
+- [ ] Assign the first organizer account (waiting for the user's account email).
