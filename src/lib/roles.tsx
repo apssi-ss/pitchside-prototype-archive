@@ -47,6 +47,7 @@ export type AppPath =
   | "/parent/consent"
   | "/ssb/roster"
   | "/ssb/training"
+  | "/ssb/attendance"
   | "/coach/teams"
   | "/coach/report"
   | "/referee/profile"
@@ -118,11 +119,12 @@ export const roles: Role[] = [
     icon: Shield,
     desc: "Roster, absensi, dan keuangan klub.",
     product: "Football OS",
-    owns: ["/ssb", "/ssb/finance", "/ssb/roster", "/ssb/training"],
+    owns: ["/ssb", "/ssb/finance", "/ssb/roster", "/ssb/training", "/ssb/attendance"],
     tabs: [
       { to: "/ssb", label: "Dashboard", icon: LayoutDashboard },
       { to: "/ssb/roster", label: "Roster", icon: Users },
       { to: "/ssb/training", label: "Latihan", icon: CalendarDays },
+      { to: "/ssb/attendance", label: "Absen QR", icon: ScanLine },
       { to: "/ssb/finance", label: "Keuangan", icon: LineChart },
       { to: "/tournament", label: "Turnamen", icon: Trophy },
     ],

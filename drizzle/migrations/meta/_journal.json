@@ -15,6 +15,13 @@
       "when": 1794993761029,
       "tag": "0001_fix_passport_token_default",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794994216828,
+      "tag": "0002_training_qr_attendance",
+      "breakpoints": true
     }
   ]
 }

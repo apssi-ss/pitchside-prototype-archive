@@ -40,6 +40,7 @@ import { Route as SsbFinanceRouteImport } from './routes/ssb_.finance'
 import { Route as SsbRosterRouteImport } from './routes/ssb_.roster'
 import { Route as SsbTrainingRouteImport } from './routes/ssb_.training'
 import { Route as AuthenticatedOrganizerCheckinRouteImport } from './routes/_authenticated/organizer_.checkin'
+import { Route as AuthenticatedSsbAttendanceRouteImport } from './routes/_authenticated/ssb_.attendance'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -196,6 +197,12 @@ const AuthenticatedOrganizerCheckinRoute =
     path: '/organizer/checkin',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
+const AuthenticatedSsbAttendanceRoute =
+  AuthenticatedSsbAttendanceRouteImport.update({
+    id: '/ssb_/attendance',
+    path: '/ssb/attendance',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -228,6 +235,7 @@ export interface FileRoutesByFullPath {
   '/ssb/roster': typeof SsbRosterRoute
   '/ssb/training': typeof SsbTrainingRoute
   '/organizer/checkin': typeof AuthenticatedOrganizerCheckinRoute
+  '/ssb/attendance': typeof AuthenticatedSsbAttendanceRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -260,6 +268,7 @@ export interface FileRoutesByTo {
   '/ssb/roster': typeof SsbRosterRoute
   '/ssb/training': typeof SsbTrainingRoute
   '/organizer/checkin': typeof AuthenticatedOrganizerCheckinRoute
+  '/ssb/attendance': typeof AuthenticatedSsbAttendanceRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -294,6 +303,7 @@ export interface FileRoutesById {
   '/ssb_/roster': typeof SsbRosterRoute
   '/ssb_/training': typeof SsbTrainingRoute
   '/_authenticated/organizer_/checkin': typeof AuthenticatedOrganizerCheckinRoute
+  '/_authenticated/ssb_/attendance': typeof AuthenticatedSsbAttendanceRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -328,6 +338,7 @@ export interface FileRouteTypes {
     | '/ssb/roster'
     | '/ssb/training'
     | '/organizer/checkin'
+    | '/ssb/attendance'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -360,6 +371,7 @@ export interface FileRouteTypes {
     | '/ssb/roster'
     | '/ssb/training'
     | '/organizer/checkin'
+    | '/ssb/attendance'
   id:
     | '__root__'
     | '/'
@@ -393,6 +405,7 @@ export interface FileRouteTypes {
     | '/ssb_/roster'
     | '/ssb_/training'
     | '/_authenticated/organizer_/checkin'
+    | '/_authenticated/ssb_/attendance'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -647,15 +660,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedOrganizerCheckinRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/ssb_/attendance': {
+      id: '/_authenticated/ssb_/attendance'
+      path: '/ssb/attendance'
+      fullPath: '/ssb/attendance'
+      preLoaderRoute: typeof AuthenticatedSsbAttendanceRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
 interface AuthenticatedRouteRouteChildren {
   AuthenticatedOrganizerCheckinRoute: typeof AuthenticatedOrganizerCheckinRoute
+  AuthenticatedSsbAttendanceRoute: typeof AuthenticatedSsbAttendanceRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedOrganizerCheckinRoute: AuthenticatedOrganizerCheckinRoute,
+  AuthenticatedSsbAttendanceRoute: AuthenticatedSsbAttendanceRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

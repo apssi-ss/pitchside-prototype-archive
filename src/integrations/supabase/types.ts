@@ -179,6 +179,75 @@ export type Database = {
         }
         Relationships: []
       }
+      training_attendance: {
+        Row: {
+          id: string
+          method: string
+          player_id: string
+          recorded_at: string
+          recorded_by: string
+          session_id: string
+        }
+        Insert: {
+          id?: string
+          method?: string
+          player_id: string
+          recorded_at?: string
+          recorded_by: string
+          session_id: string
+        }
+        Update: {
+          id?: string
+          method?: string
+          player_id?: string
+          recorded_at?: string
+          recorded_by?: string
+          session_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "training_attendance_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "training_attendance_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "training_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      training_sessions: {
+        Row: {
+          created_at: string
+          id: string
+          starts_at: string
+          team: string
+          title: string
+          venue: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          starts_at: string
+          team: string
+          title: string
+          venue?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          starts_at?: string
+          team?: string
+          title?: string
+          venue?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -215,6 +284,10 @@ export type Database = {
           _user_id: string
         }
         Returns: boolean
+      }
+      record_training_attendance: {
+        Args: { _code: string; _method?: string; _session_id: string }
+        Returns: Json
       }
     }
     Enums: {
