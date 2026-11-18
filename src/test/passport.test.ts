@@ -34,4 +34,24 @@ describe("Football Passport QR", () => {
     expect(checkinMessage({ status: "not_in_roster" }).tone).toBe("danger");
     expect(checkinMessage({ status: "ok" }).tone).toBe("success");
   });
+
+  it("uses training language for rejected training attendance", () => {
+    const rejected = checkinMessage(
+      {
+        status: "not_in_roster",
+        player_name: "Rizky Pratama",
+        football_id: "IDN-FB-2016-000123",
+        team: "U10",
+      },
+      "training",
+    );
+    expect(rejected.title).toBe("Tidak terdaftar di sesi latihan ini");
+    expect(rejected.detail).toBe(
+      "Rizky Pratama · IDN-FB-2016-000123 (U10) tidak terdaftar pada sesi latihan ini.",
+    );
+
+    const missingSession = checkinMessage({ status: "no_match" }, "training");
+    expect(missingSession.title).toBe("Sesi latihan tidak ditemukan");
+    expect(missingSession.detail).toBe("Pilih ulang sesi latihan.");
+  });
 });

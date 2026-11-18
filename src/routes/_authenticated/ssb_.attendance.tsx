@@ -124,7 +124,7 @@ function Attendance() {
   const players = playersQ.data ?? [];
   const att = attQ.data ?? new Map();
   const present = players.filter((p) => att.has(p.id)).length;
-  const msg = last ? checkinMessage(last) : null;
+  const msg = last ? checkinMessage(last, "training") : null;
 
   function submitManual(e: FormEvent) {
     e.preventDefault();

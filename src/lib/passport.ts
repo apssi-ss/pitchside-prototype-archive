@@ -40,7 +40,7 @@ export type CheckinResult = {
   checked_in_at?: string;
 };
 
-export function checkinMessage(r: CheckinResult): {
+export function checkinMessage(r: CheckinResult, context: "match" | "training" = "match"): {
   tone: "success" | "warning" | "danger";
   title: string;
   detail: string;
@@ -55,6 +55,13 @@ export function checkinMessage(r: CheckinResult): {
     case "duplicate":
       return { tone: "warning", title: "Sudah check-in", detail: `${who} tercatat pukul ${time}` };
     case "not_in_roster":
+      if (context === "training") {
+        return {
+          tone: "danger",
+          title: "Tidak terdaftar di sesi latihan ini",
+          detail: `${who} (${r.team ?? "-"}) tidak terdaftar pada sesi latihan ini.`,
+        };
+      }
       return {
         tone: "danger",
         title: "Tidak terdaftar di laga ini",
@@ -63,6 +70,9 @@ export function checkinMessage(r: CheckinResult): {
     case "unknown":
       return { tone: "danger", title: "Passport tidak dikenal", detail: "Kode tidak cocok dengan pemain mana pun." };
     case "no_match":
+      if (context === "training") {
+        return { tone: "danger", title: "Sesi latihan tidak ditemukan", detail: "Pilih ulang sesi latihan." };
+      }
       return { tone: "danger", title: "Pertandingan tidak ditemukan", detail: "Pilih ulang pertandingan." };
     case "forbidden":
       return { tone: "danger", title: "Tidak ada akses panitia", detail: "Akun ini belum ditetapkan sebagai panitia." };
