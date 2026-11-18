@@ -14,16 +14,211 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      match_checkins: {
+        Row: {
+          checked_in_at: string
+          checked_in_by: string
+          id: string
+          match_id: string
+          method: string
+          player_id: string
+        }
+        Insert: {
+          checked_in_at?: string
+          checked_in_by: string
+          id?: string
+          match_id: string
+          method?: string
+          player_id: string
+        }
+        Update: {
+          checked_in_at?: string
+          checked_in_by?: string
+          id?: string
+          match_id?: string
+          method?: string
+          player_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "match_checkins_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "matches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "match_checkins_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      match_roster: {
+        Row: {
+          id: string
+          match_id: string
+          player_id: string
+          shirt_number: number | null
+          team: string
+        }
+        Insert: {
+          id?: string
+          match_id: string
+          player_id: string
+          shirt_number?: number | null
+          team: string
+        }
+        Update: {
+          id?: string
+          match_id?: string
+          player_id?: string
+          shirt_number?: number | null
+          team?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "match_roster_match_id_fkey"
+            columns: ["match_id"]
+            isOneToOne: false
+            referencedRelation: "matches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "match_roster_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      matches: {
+        Row: {
+          away_team: string
+          category: string
+          created_at: string
+          home_team: string
+          id: string
+          kickoff_at: string
+          tournament_name: string
+          venue: string
+        }
+        Insert: {
+          away_team: string
+          category: string
+          created_at?: string
+          home_team: string
+          id?: string
+          kickoff_at: string
+          tournament_name: string
+          venue?: string
+        }
+        Update: {
+          away_team?: string
+          category?: string
+          created_at?: string
+          home_team?: string
+          id?: string
+          kickoff_at?: string
+          tournament_name?: string
+          venue?: string
+        }
+        Relationships: []
+      }
+      players: {
+        Row: {
+          category: string
+          created_at: string
+          football_id: string
+          full_name: string
+          id: string
+          passport_token: string
+          team: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          football_id: string
+          full_name: string
+          id?: string
+          passport_token?: string
+          team: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          football_id?: string
+          full_name?: string
+          id?: string
+          passport_token?: string
+          team?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      check_in_player: {
+        Args: { _code: string; _match_id: string; _method?: string }
+        Returns: Json
+      }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "organizer" | "admin"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +345,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["organizer", "admin"],
+    },
   },
 } as const

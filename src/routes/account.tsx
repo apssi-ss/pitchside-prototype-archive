@@ -1,5 +1,5 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Check, ChevronRight, Download, LogOut, Phone, ShieldCheck, KeyRound } from "lucide-react";
 import { toast } from "sonner";
 import {
@@ -14,6 +14,8 @@ import {
 } from "@/components/kit";
 import { roles, useRole, type RoleId } from "@/lib/roles";
 import { cn } from "@/lib/utils";
+import { supabase } from "@/integrations/supabase/client";
+import { useQueryClient } from "@tanstack/react-query";
 
 export const Route = createFileRoute("/account")({
   head: () => ({
@@ -198,17 +200,50 @@ function AccountPage() {
             </ul>
           </Panel>
 
-          <Btn
-            variant="outline"
-            className="w-full"
-            onClick={() =>
-              toast("Anda keluar dari prototipe", { description: "Belum ada akun sungguhan." })
-            }
-          >
-            <LogOut className="h-4 w-4" /> Keluar
-          </Btn>
+          <SessionPanel />
         </div>
       </div>
     </div>
+  );
+}
+
+function SessionPanel() {
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [email, setEmail] = useState<string | null | undefined>(undefined);
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setEmail(data.user?.email ?? null));
+    const { data } = supabase.auth.onAuthStateChange((_e, session) =>
+      setEmail(session?.user?.email ?? null),
+    );
+    return () => data.subscription.unsubscribe();
+  }, []);
+
+  if (email === undefined) return null;
+  if (!email) {
+    return (
+      <Link to="/auth" search={{ redirect: "/account" }} className="block">
+        <Btn className="w-full">Masuk ke akun</Btn>
+      </Link>
+    );
+  }
+  return (
+    <Panel>
+      <p className="text-xs text-muted-foreground">Masuk sebagai</p>
+      <p className="truncate text-sm font-semibold">{email}</p>
+      <Btn
+        variant="outline"
+        className="mt-3 w-full"
+        onClick={async () => {
+          await queryClient.cancelQueries();
+          queryClient.clear();
+          await supabase.auth.signOut();
+          navigate({ to: "/auth", search: { redirect: undefined }, replace: true });
+        }}
+      >
+        <LogOut className="h-4 w-4" /> Keluar
+      </Btn>
+    </Panel>
   );
 }

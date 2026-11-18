@@ -10,8 +10,10 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AssociationRouteImport } from './routes/association'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as CoachRouteImport } from './routes/coach'
 import { Route as NotificationsRouteImport } from './routes/notifications'
 import { Route as OpportunitiesRouteImport } from './routes/opportunities'
@@ -37,10 +39,15 @@ import { Route as ScoutWatchlistRouteImport } from './routes/scout_.watchlist'
 import { Route as SsbFinanceRouteImport } from './routes/ssb_.finance'
 import { Route as SsbRosterRouteImport } from './routes/ssb_.roster'
 import { Route as SsbTrainingRouteImport } from './routes/ssb_.training'
+import { Route as AuthenticatedOrganizerCheckinRouteImport } from './routes/_authenticated/organizer_.checkin'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AccountRoute = AccountRouteImport.update({
@@ -51,6 +58,11 @@ const AccountRoute = AccountRouteImport.update({
 const AssociationRoute = AssociationRouteImport.update({
   id: '/association',
   path: '/association',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CoachRoute = CoachRouteImport.update({
@@ -178,11 +190,18 @@ const SsbTrainingRoute = SsbTrainingRouteImport.update({
   path: '/ssb/training',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedOrganizerCheckinRoute =
+  AuthenticatedOrganizerCheckinRouteImport.update({
+    id: '/organizer_/checkin',
+    path: '/organizer/checkin',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
   '/association': typeof AssociationRoute
+  '/auth': typeof AuthRoute
   '/coach': typeof CoachRoute
   '/notifications': typeof NotificationsRoute
   '/opportunities': typeof OpportunitiesRoute
@@ -208,11 +227,13 @@ export interface FileRoutesByFullPath {
   '/ssb/finance': typeof SsbFinanceRoute
   '/ssb/roster': typeof SsbRosterRoute
   '/ssb/training': typeof SsbTrainingRoute
+  '/organizer/checkin': typeof AuthenticatedOrganizerCheckinRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
   '/association': typeof AssociationRoute
+  '/auth': typeof AuthRoute
   '/coach': typeof CoachRoute
   '/notifications': typeof NotificationsRoute
   '/opportunities': typeof OpportunitiesRoute
@@ -238,12 +259,15 @@ export interface FileRoutesByTo {
   '/ssb/finance': typeof SsbFinanceRoute
   '/ssb/roster': typeof SsbRosterRoute
   '/ssb/training': typeof SsbTrainingRoute
+  '/organizer/checkin': typeof AuthenticatedOrganizerCheckinRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/account': typeof AccountRoute
   '/association': typeof AssociationRoute
+  '/auth': typeof AuthRoute
   '/coach': typeof CoachRoute
   '/notifications': typeof NotificationsRoute
   '/opportunities': typeof OpportunitiesRoute
@@ -269,6 +293,7 @@ export interface FileRoutesById {
   '/ssb_/finance': typeof SsbFinanceRoute
   '/ssb_/roster': typeof SsbRosterRoute
   '/ssb_/training': typeof SsbTrainingRoute
+  '/_authenticated/organizer_/checkin': typeof AuthenticatedOrganizerCheckinRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -276,6 +301,7 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/association'
+    | '/auth'
     | '/coach'
     | '/notifications'
     | '/opportunities'
@@ -301,11 +327,13 @@ export interface FileRouteTypes {
     | '/ssb/finance'
     | '/ssb/roster'
     | '/ssb/training'
+    | '/organizer/checkin'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/account'
     | '/association'
+    | '/auth'
     | '/coach'
     | '/notifications'
     | '/opportunities'
@@ -331,11 +359,14 @@ export interface FileRouteTypes {
     | '/ssb/finance'
     | '/ssb/roster'
     | '/ssb/training'
+    | '/organizer/checkin'
   id:
     | '__root__'
     | '/'
+    | '/_authenticated'
     | '/account'
     | '/association'
+    | '/auth'
     | '/coach'
     | '/notifications'
     | '/opportunities'
@@ -361,12 +392,15 @@ export interface FileRouteTypes {
     | '/ssb_/finance'
     | '/ssb_/roster'
     | '/ssb_/training'
+    | '/_authenticated/organizer_/checkin'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AccountRoute: typeof AccountRoute
   AssociationRoute: typeof AssociationRoute
+  AuthRoute: typeof AuthRoute
   CoachRoute: typeof CoachRoute
   NotificationsRoute: typeof NotificationsRoute
   OpportunitiesRoute: typeof OpportunitiesRoute
@@ -403,6 +437,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/account': {
       id: '/account'
       path: '/account'
@@ -415,6 +456,13 @@ declare module '@tanstack/react-router' {
       path: '/association'
       fullPath: '/association'
       preLoaderRoute: typeof AssociationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/coach': {
@@ -592,13 +640,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SsbTrainingRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/organizer_/checkin': {
+      id: '/_authenticated/organizer_/checkin'
+      path: '/organizer/checkin'
+      fullPath: '/organizer/checkin'
+      preLoaderRoute: typeof AuthenticatedOrganizerCheckinRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedOrganizerCheckinRoute: typeof AuthenticatedOrganizerCheckinRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedOrganizerCheckinRoute: AuthenticatedOrganizerCheckinRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AccountRoute: AccountRoute,
   AssociationRoute: AssociationRoute,
+  AuthRoute: AuthRoute,
   CoachRoute: CoachRoute,
   NotificationsRoute: NotificationsRoute,
   OpportunitiesRoute: OpportunitiesRoute,

@@ -1,21 +1,20 @@
 import { BadgeCheck } from "lucide-react";
 import { player } from "@/lib/mock-data";
 import { cn } from "@/lib/utils";
+import { QRCodeSVG } from "qrcode.react";
+import { passportQrPayload } from "@/lib/passport";
 
-// Deterministic faux QR grid derived from the ID string
-function IdGrid({ seed }: { seed: string }) {
-  const cells = Array.from({ length: 49 }, (_, i) => {
-    const ch = seed.charCodeAt(i % seed.length);
-    return ((ch * (i + 7)) ^ (i * 13)) % 3 !== 0;
-  });
+function PassportQr({ token }: { token: string }) {
   return (
-    <div
-      className="grid h-[68px] w-[68px] grid-cols-7 gap-[2px] rounded-lg bg-chalk p-1.5"
-      aria-hidden
-    >
-      {cells.map((on, i) => (
-        <span key={i} className={cn("rounded-[1px]", on ? "bg-pitch-deep" : "bg-transparent")} />
-      ))}
+    <div className="rounded-lg bg-chalk p-1.5" role="img" aria-label="QR Football Passport untuk check-in">
+      <QRCodeSVG
+        value={passportQrPayload(token)}
+        size={76}
+        level="M"
+        bgColor="transparent"
+        fgColor="currentColor"
+        className="text-pitch-deep"
+      />
     </div>
   );
 }
@@ -64,7 +63,7 @@ export function FootballIdCard({ className }: { className?: string }) {
             </p>
           )}
         </div>
-        <IdGrid seed={player.footballId} />
+        <PassportQr token={player.passportToken} />
       </div>
 
       <dl className="relative mt-5 grid grid-cols-4 gap-2 border-t border-pitch-foreground/15 pt-4">

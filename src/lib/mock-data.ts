@@ -4,6 +4,8 @@ export const player = {
   name: "Rizky Pratama",
   initials: "RP",
   footballId: "IDN-FB-2016-000123",
+  /** Demo passport token; matches the sample player saved for match check-in. */
+  passportToken: "7f3c9a2e51d84b06c1e2a9d4",
   birthYear: 2016,
   category: "U10",
   position: "CM / AM",

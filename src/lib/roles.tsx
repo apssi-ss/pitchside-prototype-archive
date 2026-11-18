@@ -23,6 +23,7 @@ import {
   Star,
   Network,
   BarChart3,
+  ScanLine,
   type LucideIcon,
 } from "lucide-react";
 
@@ -50,6 +51,7 @@ export type AppPath =
   | "/coach/report"
   | "/referee/profile"
   | "/organizer/draw"
+  | "/organizer/checkin"
   | "/organizer/results"
   | "/scout/watchlist"
   | "/association/verification"
@@ -166,9 +168,10 @@ export const roles: Role[] = [
     icon: Trophy,
     desc: "Pendaftaran, drawing, wasit & hasil.",
     product: "Competition",
-    owns: ["/organizer", "/organizer/draw", "/organizer/results"],
+    owns: ["/organizer", "/organizer/checkin", "/organizer/draw", "/organizer/results"],
     tabs: [
       { to: "/organizer", label: "Kelola", icon: Settings2 },
+      { to: "/organizer/checkin", label: "Check-in", icon: ScanLine },
       { to: "/organizer/draw", label: "Drawing", icon: Network },
       { to: "/organizer/results", label: "Hasil", icon: BarChart3 },
       { to: "/tournament", label: "Klasemen", icon: Trophy },

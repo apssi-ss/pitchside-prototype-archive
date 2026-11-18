@@ -1,6 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { CheckCircle2, Circle, Flag, UserPlus } from "lucide-react";
+import { CheckCircle2, Circle, Flag, ScanLine, UserPlus } from "lucide-react";
 import { toast } from "sonner";
 import { Btn, Meter, PageHeader, Panel, Pill, SectionTitle, Stat } from "@/components/kit";
 import {
@@ -43,7 +43,13 @@ function OrganizerPage() {
       <PageHeader
         eyebrow={`${tournament.dates} · ${tournament.categories.join(" · ")}`}
         title={tournament.name}
-      />
+      >
+        <Link to="/organizer/checkin">
+          <Btn variant="signal">
+            <ScanLine className="h-4 w-4" /> Check-in pemain
+          </Btn>
+        </Link>
+      </PageHeader>
 
       <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
         <Stat label="Tim terdaftar" value={tournament.teams} sub="16 per kategori" />
