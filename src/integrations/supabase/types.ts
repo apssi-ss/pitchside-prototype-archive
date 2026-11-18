@@ -14,6 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
+      development_plans: {
+        Row: {
+          assessment_id: string | null
+          created_at: string
+          created_by: string
+          id: string
+          model: string
+          plan: Json
+          player_id: string
+        }
+        Insert: {
+          assessment_id?: string | null
+          created_at?: string
+          created_by: string
+          id?: string
+          model?: string
+          plan: Json
+          player_id: string
+        }
+        Update: {
+          assessment_id?: string | null
+          created_at?: string
+          created_by?: string
+          id?: string
+          model?: string
+          plan?: Json
+          player_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "development_plans_assessment_id_fkey"
+            columns: ["assessment_id"]
+            isOneToOne: false
+            referencedRelation: "player_assessments"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "development_plans_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       match_checkins: {
         Row: {
           checked_in_at: string
@@ -128,32 +173,79 @@ export type Database = {
         }
         Relationships: []
       }
+      player_assessments: {
+        Row: {
+          average: number
+          coach_id: string
+          created_at: string
+          id: string
+          note: string
+          period: string
+          player_id: string
+          scores: Json
+        }
+        Insert: {
+          average: number
+          coach_id: string
+          created_at?: string
+          id?: string
+          note?: string
+          period: string
+          player_id: string
+          scores: Json
+        }
+        Update: {
+          average?: number
+          coach_id?: string
+          created_at?: string
+          id?: string
+          note?: string
+          period?: string
+          player_id?: string
+          scores?: Json
+        }
+        Relationships: [
+          {
+            foreignKeyName: "player_assessments_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       players: {
         Row: {
+          birth_year: number | null
           category: string
           created_at: string
           football_id: string
           full_name: string
           id: string
           passport_token: string
+          position: string
           team: string
         }
         Insert: {
+          birth_year?: number | null
           category: string
           created_at?: string
           football_id: string
           full_name: string
           id?: string
           passport_token?: string
+          position?: string
           team: string
         }
         Update: {
+          birth_year?: number | null
           category?: string
           created_at?: string
           football_id?: string
           full_name?: string
           id?: string
           passport_token?: string
+          position?: string
           team?: string
         }
         Relationships: []
@@ -285,13 +377,24 @@ export type Database = {
         }
         Returns: boolean
       }
+      is_coach: { Args: { _user_id: string }; Returns: boolean }
       record_training_attendance: {
         Args: { _code: string; _method?: string; _session_id: string }
         Returns: Json
       }
+      register_player: {
+        Args: {
+          _birth_year: number
+          _category: string
+          _full_name: string
+          _position: string
+          _team: string
+        }
+        Returns: Json
+      }
     }
     Enums: {
-      app_role: "organizer" | "admin"
+      app_role: "organizer" | "admin" | "coach"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -419,7 +522,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["organizer", "admin"],
+      app_role: ["organizer", "admin", "coach"],
     },
   },
 } as const

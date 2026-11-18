@@ -13,3 +13,11 @@
 - [ ] Connect roster, assessment, and training screens; verify signed-in saves and reloads.
 - [x] Add secure organizer accounts, persisted match rosters, QR passport scanning, and shared check-in records.
 - [ ] Assign the first organizer account (waiting for the user's account email).
+
+## Opsi A — SSB & pelatih
+- [ ] Coach role (designated accounts only) with read access to players and training records.
+- [ ] Persisted SSB roster: list players by team and register new players with generated Football ID.
+- [ ] Coach assessment form saved to the database with history per player.
+- [ ] AI development plan from assessments + attendance (no names/IDs sent to AI), saved per player.
+- [ ] Verify saves, reload, AI generation and access denial with a temporary coach account.
+- [ ] Assign the first coach account (waiting for the user's account email).
