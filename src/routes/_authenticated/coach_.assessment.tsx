@@ -345,9 +345,9 @@ function PlanView({ plan, createdAt }: { plan: DevelopmentPlan; createdAt: strin
       {plan.strengths.length > 0 && (
         <div>
           <p className="mb-1.5 font-bold">Kekuatan</p>
-          <div className="flex flex-wrap gap-1.5">
-            {plan.strengths.map((s) => <Pill key={s} tone="success">{s}</Pill>)}
-          </div>
+          <ul className="list-disc space-y-1 pl-5">
+            {plan.strengths.map((s) => <li key={s}>{s}</li>)}
+          </ul>
         </div>
       )}
       <div className="space-y-3">
